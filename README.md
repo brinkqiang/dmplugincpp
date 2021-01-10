@@ -1,11 +1,10 @@
-# dmplugincpp
+# 1. dmplugincpp
 a modern c++ plugin library. It is in experiment.
 
-## Intro
+## 1.1. Intro
 dmplugincpp is a customized version based on plugincpp.
-```cpp
 
-Dependency:
+## 1.2. Dependency
 
 1. Boost.dll, boost.filesystem
 2. msgpack
