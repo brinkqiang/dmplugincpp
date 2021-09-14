@@ -2,27 +2,27 @@
 
 namespace purecpp{
 
-    int multiply(int a, int b){
-      return a * b;
-    }
-    ADD_SERVICE(multiply);
+    //int multiply(int a, int b){
+    //  return a * b;
+    //}
+    //ADD_SERVICE(multiply);
 
-    int substract(int a, int b){
-      return a - b;
-    }
-    ADD_SERVICE(substract);
+    //int substract(int a, int b){
+    //  return a - b;
+    //}
+    //ADD_SERVICE(substract);
 
-    struct dummy_t{
-        std::string echo(std::string str){
-          return str;
-        }
+    //struct dummy_t{
+    //    std::string echo(std::string str){
+    //      return str;
+    //    }
 
-        int add(int a, int b){
-          return a + b;
-        }
-    };
+    //    int add(int a, int b){
+    //      return a + b;
+    //    }
+    //};
 
-    dummy_t dummy;
-    ADD_SERVICE(&dummy_t::echo, &dummy);
-    ADD_SERVICE(&dummy_t::add, &dummy);
+    //dummy_t dummy;
+    //ADD_SERVICE(&dummy_t::echo, &dummy);
+    //ADD_SERVICE(&dummy_t::add, &dummy);
 }
