@@ -73,18 +73,18 @@ namespace purecpp{
 
         template<typename F, typename Arg, typename... Args>
         static
-        typename std::enable_if<std::is_void<typename std::invoke_result<F(Args...)>::type>::value>::type
-        call(const F & f, std::string & result, std::tuple<Arg, Args...>& tp) {
-          call_helper(f, std::make_index_sequence<sizeof...(Args)>{}, std::move(tp));
-          result = msg_codec::pack_args_str(error_code::OK);
+            typename std::enable_if<std::is_void<typename std::invoke_result<F(Args...)>::type>::value>::type
+            call(const F& f, std::string& result, std::tuple<Arg, Args...> tp) {
+            call_helper(f, std::make_index_sequence<sizeof...(Args)>{}, std::move(tp));
+            result = msg_codec::pack_args_str(error_code::OK);
         }
 
         template<typename F, typename Arg, typename... Args>
         static
             typename std::enable_if<!std::is_void<typename std::invoke_result<F(Args...)>::type>::value>::type
-            call(const F& f, std::string& result, std::tuple<Arg, Args...>& tp) {
+            call(const F& f, std::string& result, std::tuple<Arg, Args...> tp) {
             auto r = call_helper(f, std::make_index_sequence<sizeof...(Args)>{}, std::move(tp));
-            msg_codec codec;
+            //msg_codec codec;
             result = msg_codec::pack_args_str(error_code::OK, r);
         }
 
@@ -122,7 +122,7 @@ namespace purecpp{
               msg_codec codec;
               try {
                 auto tp = codec.unpack<args_tuple>(data, size);
-                call(func, result, std::move(tp));
+                router::call(func, result, std::move(tp));
               }
               catch (std::invalid_argument & e) {
                 result = codec.pack_args_str(error_code::FAIL, e.what());
