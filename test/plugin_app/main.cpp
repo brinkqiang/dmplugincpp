@@ -2,8 +2,8 @@
 #include <string>
 #include <boost/dll.hpp>
 #include <msgpack.hpp>
-#include "../common/msg_codec.h"
-#include "../common/error_code.h"
+#include "common/msg_codec.h"
+#include "common/error_code.h"
 #include <cinatra.hpp>
 #include <rest_rpc.hpp>
 
