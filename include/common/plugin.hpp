@@ -10,30 +10,30 @@
 
 namespace purecpp{
 
-    std::string call_in_so(const char *data, std::size_t size) {
-      return purecpp::router::get().route(data, size);
+    std::string call_in_so(const char* data, std::size_t size) {
+        return purecpp::router::get().route(data, size);
     }
 
     template<typename Function>
     int register_handler(std::string const& name, Function f){
-      purecpp::router::get().register_handler(name, std::move(f));
+        purecpp::router::get().register_handler(name, std::move(f));
 
-      return 0;
+        return 0;
     }
 
     template<typename Function, typename Self>
     int register_handler(std::string const& name, const Function& f, Self* self) {
-      std::string key(name.data()+1, name.size()-1);
-      purecpp::router::get().register_handler(key, f, self);
+        std::string key(name.data() + 1, name.size() - 1);
+        purecpp::router::get().register_handler(key, f, self);
 
-      return 0;
+        return 0;
     }
 
     template<typename Self, typename Function>
     int register_handler(Self&& self, std::string const& name, const Function& f) {
-      register_handler(name, f, &self);
+        register_handler(name, f, &self);
 
-      return 0;
+        return 0;
     }
 }
 
