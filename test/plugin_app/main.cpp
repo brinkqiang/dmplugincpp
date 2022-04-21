@@ -56,7 +56,7 @@ std::string GetModuleRealPath(std::string plugin_name)
 #elif __APPLE__
     return DMGetRootPath() + PATH_DELIMITER_STR + plugin_name + ".dylib";
 #else
-    return DMGetRootPath() + PATH_DELIMITER_STR + plugin_name + ".so";
+    return DMGetRootPath() + PATH_DELIMITER_STR + "lib" + plugin_name + ".so";
 #endif
 }
 
