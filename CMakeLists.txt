@@ -10,10 +10,13 @@ INCLUDE(cmake/ModuleCompileOptions.cmake)
 ModuleSetCompileOptions()
 ModuleSetWinCompilerFlags()
 
-find_package(Boost COMPONENTS coroutine REQUIRED)
+ADD_DEFINITIONS(-DASIO_STANDALONE)
+
+ModuleImport("dmrest_rpc" "thirdparty/dmrest_rpc")
+ModuleImport("dmcinatra" "thirdparty/dmcinatra")
+
+find_package(Boost COMPONENTS filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-ModuleImport("dmmsgpack" "thirdparty/dmmsgpack")
-
 LibImport("dmplugincpp" "src/dmplugincpp")
-ExeImport("test" "dmplugincpp;${Boost_LIBRARIES};dmmsgpack")
+ExeImport("test" "dmplugincpp;${Boost_LIBRARIES}")
