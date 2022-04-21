@@ -6,7 +6,7 @@
 #include "common/error_code.h"
 #include "rest_rpc.hpp"
 #include "cinatra.hpp"
-
+#include "dmutil.h"
 
 using namespace rest_rpc;
 using namespace rpc_service;
@@ -49,10 +49,24 @@ private:
     std::function<std::string(const char*, size_t)> call_in_so_;
 };
 
+std::string GetModuleRealPath(std::string plugin_name)
+{
+#ifdef WIN32
+    return DMGetRootPath() + PATH_DELIMITER_STR + plugin_name + ".dll";
+#elif __APPLE__
+    return DMGetRootPath() + PATH_DELIMITER_STR + plugin_name + ".dylib";
+#else
+    return DMGetRootPath() + PATH_DELIMITER_STR + plugin_name + ".so";
+#endif
+}
+
 std::unordered_map<std::string, std::shared_ptr<plugin_resolver>> g_plugin_map;
 
 void start_rpc_server(){
     rpc_server server(9000, std::thread::hardware_concurrency());
+
+    g_plugin_map.emplace("custom_plugin", std::make_unique<plugin_resolver>(GetModuleRealPath("custom")));
+    g_plugin_map.emplace("dummy_plugin", std::make_unique<plugin_resolver>(GetModuleRealPath("dummy")));
 
     server.register_handler("plugin_service", [](rpc_conn conn, std::string plugin_name, std::string service_buf){
         auto it = g_plugin_map.find(plugin_name);

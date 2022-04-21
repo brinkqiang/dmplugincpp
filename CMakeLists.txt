@@ -18,7 +18,8 @@ ModuleImport("dmcinatra" "thirdparty/dmcinatra")
 find_package(Boost COMPONENTS filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-LibImport("dmplugincpp" "src/dmplugincpp")
+DllImportDepends("custom" "src/custom" "")
+DllImportDepends("dummy" "src/dummy" "")
 
 IF(WIN32)
     ExeImport("test" "dmplugincpp;${Boost_LIBRARIES}")
